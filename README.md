@@ -20,6 +20,14 @@ Once I successfully launched my Jitsi meet instance, I began testing its functio
 * After 2-3 test calls, my instance stopped responding. This may be a feature of the VM on which the instance is hosted, but will require further exploration during Phase 2.
 * I then relaunched the instance on GCP and again was able to successfully run the instance on both computer and mobile devicves. Notably, though, accessing the instance via Safari (rather than via Chrome) led to camera streams being disabled (which may be a result of how WebRTC is implemented in the Safari browser).
 
+## Phase 2: Testing Vulnerabilities
+In phase 2, I began testing Jitsi for potential vulnerabilities. My testing began by simply trying a few exploits based on observed functionality and then expanded based on analysis of potential bugs in the source code.
 
+### Testing Vulnerabilities Based on Functionality Observations
+#### Session Disruption
+One potential issue that became immediately obvious is that a user may simply append "/(room name)" to the host domain and access any meeting with that that room name. This could allow an attacker to join a call without the permission of the other users on the call. The easiest remediation for this issue (which is readily available within a Jitsi session's security settings) is to add password protection to any meeting (or, at a minimum, use a waiting room feature). Thus, this vulnerability can be easily mitigated.
+
+#### Vulnerabilities within Chat
+Although Jitsi has reported issues in the past of the [chat being susceptible to XSS attacks](https://community.jitsi.org/t/jitsi-users-xss-in-chat-window-of-meet-jit-si/7021), these vulnerabilities appear to have since been patched, and I was unable to make the chat execute any javascript injections. However, one issue I did notice is that items in the chat appear to remain in the chat even after all users have left the session (and anyone who logs into the session afterwards will have access to the chat history). This could be very dangerous if sensitive information is shared in the chat. To remediate this, I would suggest again protecting all sessions with a password. Notably, this issue does not seem to occur on the [online Jitsi instance](https://meet.jit.si).
 
 
