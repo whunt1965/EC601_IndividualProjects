@@ -9,7 +9,7 @@ Although a Jitsi Meet session can easily be created by visiting https://meet.jit
 
 Following these instructions, I created a virtual machine (with an Ubuntu OS) and installed Jitsi meet. During this process, it became apparent that it was necessary to link the instance to a legitimate domain name (which could be accessed through the browser) in order to ensure proper certificate validation (which is required by browsers such as Google Chrome in order to access a page). As such, I acquired a domain name and successfully launched a Jitsi meet instance available at that domain. 
 
-![image of login]()
+![image of login](https://github.com/whunt1965/EC601_Project3/blob/main/Snip20201011_13.png)
 
 ### Analysis of Results
 Once I successfully launched my Jitsi meet instance, I began testing its functionality to ensure it worked as expected.
