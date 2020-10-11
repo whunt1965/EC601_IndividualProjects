@@ -1,5 +1,5 @@
 # EC601 Project 3
-The primary objective of Project 3 is to deploy a complex open source system and execute a testing strategy to analyze features of this system. In my case, I will be focusing deploying and testing the WebRTC based conferencing application (Jitsi Meet)[https://jitsi.org/jitsi-meet/]. This project consists of two primary phases:
+The primary objective of Project 3 is to deploy a complex open source system and execute a testing strategy to analyze features of this system. In my case, I will be focusing deploying and testing the WebRTC based conferencing application [Jitsi Meet][https://jitsi.org/jitsi-meet/]. This project consists of two primary phases:
 * Phase 1: Deploy an instance of Jitsi Meet and duplicate expected results (ie, produce a working instance of Jitsi Meet)
 * Phase 2: Execute a testing strategy to identify potential vulnerabilities in Jitsi Meet (initial focus is on analyzing the signaling and finding security holes in session creation).
 
