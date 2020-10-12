@@ -30,7 +30,7 @@ One potential issue that became immediately obvious is that a user may simply ap
 #### Vulnerabilities within Chat
 Although Jitsi has reported issues in the past of the [chat being susceptible to XSS attacks](https://community.jitsi.org/t/jitsi-users-xss-in-chat-window-of-meet-jit-si/7021), these vulnerabilities appear to have since been patched, and I was unable to make the chat execute any javascript injections. 
 
-### Session Termination on Mobile
+#### Incomplete Session Termination on Mobile (when closing tab)
 In testing accessing the instance via mobile, I noticed an issue where simply closing the tab on a mobile (phone/tablet) doesn't actually automatically disconnect the user from the session. While the media (audio/video) streams from the mobile are no longer available, the user is still "logged in" (for a short period of time on the scale of 1-2 minutes) and any information that user shared in the chat remains (and anyone who logs into the session during this window will have access to the chat history even after they are logged out). This could be very dangerous if sensitive information is shared in the chat. To remediate this, I would suggest again protecting all sessions with a password. Notably, this issue does not seem to occur on the [online Jitsi instance](https://meet.jit.si).
 ![image of login](https://github.com/whunt1965/EC601_Project3/blob/main/Snip20201012_15.png)
 
