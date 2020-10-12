@@ -30,4 +30,6 @@ One potential issue that became immediately obvious is that a user may simply ap
 #### Vulnerabilities within Chat
 Although Jitsi has reported issues in the past of the [chat being susceptible to XSS attacks](https://community.jitsi.org/t/jitsi-users-xss-in-chat-window-of-meet-jit-si/7021), these vulnerabilities appear to have since been patched, and I was unable to make the chat execute any javascript injections. However, one issue I did notice is that items in the chat appear to remain in the chat even after all users have left the session (and anyone who logs into the session afterwards will have access to the chat history). This could be very dangerous if sensitive information is shared in the chat. To remediate this, I would suggest again protecting all sessions with a password. Notably, this issue does not seem to occur on the [online Jitsi instance](https://meet.jit.si).
 
+Note: While I noticed this bug when I first installed Jitsi, I have been unable to replicate it on subsequent tests. This therefore may have been a glitch where one of my sessions was still open when I re-accessed it.
+
 
