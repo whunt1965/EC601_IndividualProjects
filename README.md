@@ -27,15 +27,18 @@ In phase 2, I began testing Jitsi for potential vulnerabilities and other issues
 #### Session Disruption
 One potential issue that became immediately obvious is that a user may simply append "/(room name)" to the host domain and access any meeting with that that room name. This could allow an attacker to join a call without the permission of the other users on the call. The easiest remediation for this issue (which is readily available within a Jitsi session's security settings) is to add password protection to any meeting (or, at a minimum, use a waiting room feature). Thus, this vulnerability can be easily mitigated.
 
-#### Vulnerabilities within Chat
-Jitsi has reported issues in the past of the [chat being susceptible to XSS attacks](https://community.jitsi.org/t/jitsi-users-xss-in-chat-window-of-meet-jit-si/7021), although these vulnerabilities appear to have since been patched. Nevertheless, I attempted to see if XSS atatcks were still possible by analyzing the chat source code and attempting to inject javascript into the chat window (which was ultimately unsucessful). I also tried to inject JavaScript into the "Share YouTube Video" capability but was similarly unsuccessful. 
-
-#### Vulnerabilities within Youtube Sharing Feature
-
-
 #### Incomplete Session Termination on Mobile (when closing tab)
 In testing accessing the instance via mobile, I noticed an issue where simply closing the tab on a mobile (phone/tablet) doesn't actually automatically disconnect the user from the session. While the media (audio/video) streams from the mobile are no longer available, the user is still "logged in" (for a short period of time on the scale of 1-2 minutes) and any information that user shared in the chat remains (and anyone who logs into the session during this window will have access to the chat history even after they are logged out). This could be very dangerous if sensitive information is shared in the chat. To remediate this, I would suggest again protecting all sessions with a password. Notably, this issue does not seem to occur on the [online Jitsi instance](https://meet.jit.si).
 ![image of login](https://github.com/whunt1965/EC601_Project3/blob/main/Snip20201012_15.png)
+
+#### Password Issues
+While users can add password protection to a session, this feature is not without flaws. First, I noticed that I was unable to add password protections to meetings through Safari. This may be some sort of compatibility issue with the browser, but effectively means that a user accessing the instance through Safari will be unable to add password protection to a meeting (note: this is not an issue in Google Chrome). In addition, while a user might password protect an ongoing session, the password protection is removed after the session ends. This means that a recurring session would only have password protection each time it's added when users begin that session. One potential vulnerability here would be that a recurring session with a large audience coudld be targeted by an attacker who logs into the session (provided they know the session id) before the password protection is added. 
+
+#### Vulnerabilities within Chat
+Jitsi has reported issues in the past of the [chat being susceptible to XSS attacks](https://community.jitsi.org/t/jitsi-users-xss-in-chat-window-of-meet-jit-si/7021), although these vulnerabilities appear to have since been patched. Nevertheless, I attempted to see if XSS atatcks were still possible by analyzing the chat source code and attempting to inject javascript into the chat window (which was ultimately unsucessful).  
+
+#### Vulnerabilities within Youtube Sharing Feature
+Jitsi has a functionality which allows users to share YouTube videos in a session. I thought this might be an interesting attack vector, and attempted to find vulnerabilities in this feature. First, I tried to inject JavaScript into the "Share YouTube Video" capability (ie, inputting alerts or attempting to append Javascript to the end of a legitimate URL) but was unsuccessful in having any of this code executed. Indeed, Jitsi appears to analyze the URL prior to executing, so simple JS inputs were ruled illegal and any JS appended to the end of legitimate video URL appears to have just been discarded. I also tried inputting non-YouTube video URL's into this share feature(eg, google.com and even Youtube.com), but the system correctly identified these as invalid inputs and rejected them accordingly. 
 
 ### Other Tests
 #### Overloading Session with Multiple Users
