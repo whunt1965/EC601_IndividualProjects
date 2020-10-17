@@ -23,7 +23,7 @@ Once I successfully launched my Jitsi meet instance, I began testing its functio
 ## Phase 2: Testing Vulnerabilities and other Application issues
 In phase 2, I began testing Jitsi for potential vulnerabilities and other issues in the application. 
 
-### Testing Vulnerabilities Based on Functionality Observations
+### Testing Vulnerabilities 
 #### Session Disruption
 One potential issue that became immediately obvious is that a user may simply append "/(room name)" to the host domain and access any meeting with that that room name. This could allow an attacker to join a call without the permission of the other users on the call. The easiest remediation for this issue (which is readily available within a Jitsi session's security settings) is to add password protection to any meeting (or, at a minimum, use a waiting room feature). Thus, this vulnerability can be easily mitigated.
 
@@ -40,7 +40,7 @@ Jitsi has reported issues in the past of the [chat being susceptible to XSS atta
 #### Vulnerabilities within Youtube Sharing Feature
 Jitsi has a functionality which allows users to share YouTube videos in a session. I thought this might be an interesting attack vector, and attempted to find vulnerabilities in this feature. First, I tried to inject JavaScript into the "Share YouTube Video" capability (ie, inputting alerts or attempting to append Javascript to the end of a legitimate URL) but was unsuccessful in having any of this code executed. Indeed, Jitsi appears to analyze the URL prior to executing, so simple JS inputs were ruled illegal and any JS appended to the end of legitimate video URL appears to have just been discarded. I also tried inputting non-YouTube video URL's into this share feature(eg, google.com and even Youtube.com), but the system correctly identified these as invalid inputs and rejected them accordingly. 
 
-### Other Tests
+### Other Usability Tests
 #### Overloading Session with Multiple Users
 I wanted to test how many users my Jitsi instance could handle simultaneously and therefore open multiple connections (from my same computer, though identified by Jitsi as multiple users). After opening 13 connections, I noticed that Jitsi began to drop connections. Indeed, within 2 minutes, 5 of the connections had been lost. This issue could easily have been caused due to my browser/computer, but still offered insihght into how my instance my handle large sessions.
 
