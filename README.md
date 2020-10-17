@@ -1,7 +1,7 @@
 # EC601 Project 3
 The primary objective of Project 3 is to deploy a complex open source system and execute a testing strategy to analyze features of this system. In my case, I will be focusing deploying and testing the WebRTC based conferencing application [Jitsi Meet](https://jitsi.org/jitsi-meet/). This project consists of two primary phases:
 * Phase 1: Deploy an instance of Jitsi Meet and duplicate expected results (ie, produce a working instance of Jitsi Meet)
-* Phase 2: Execute a testing strategy to identify potential vulnerabilities in Jitsi Meet (initial focus is on analyzing the signaling and finding security holes in session creation).
+* Phase 2: Execute a testing strategy to identify potential vulnerabilities in Jitsi Meet and other issues in the application.
 
 ## Phase 1: Setting Up an Instance of Jitsi Meet
 ### Background Research and Set Up
@@ -20,8 +20,8 @@ Once I successfully launched my Jitsi meet instance, I began testing its functio
 * After 2-3 test calls, my instance stopped responding. This may be a feature of the VM on which the instance is hosted, but will require further exploration during Phase 2.
 * I then relaunched the instance on GCP and again was able to successfully run the instance on both computer and mobile devicves. Notably, though, accessing the instance via Safari (rather than via Chrome) led to camera streams being disabled (which may be a result of how WebRTC is implemented in the Safari browser).
 
-## Phase 2: Testing Vulnerabilities
-In phase 2, I began testing Jitsi for potential vulnerabilities. My testing began by simply trying a few exploits based on observed functionality and then expanded based on analysis of potential bugs in the source code.
+## Phase 2: Testing Vulnerabilities and other Application issues
+In phase 2, I began testing Jitsi for potential vulnerabilities and other issues in the application. 
 
 ### Testing Vulnerabilities Based on Functionality Observations
 #### Session Disruption
@@ -30,8 +30,18 @@ One potential issue that became immediately obvious is that a user may simply ap
 #### Vulnerabilities within Chat
 Jitsi has reported issues in the past of the [chat being susceptible to XSS attacks](https://community.jitsi.org/t/jitsi-users-xss-in-chat-window-of-meet-jit-si/7021), although these vulnerabilities appear to have since been patched. Nevertheless, I attempted to see if XSS atatcks were still possible by analyzing the chat source code and attempting to inject javascript into the chat window (which was ultimately unsucessful). I also tried to inject JavaScript into the "Share YouTube Video" capability but was similarly unsuccessful. 
 
+#### Vulnerabilities within Youtube Sharing Feature
+
+
 #### Incomplete Session Termination on Mobile (when closing tab)
 In testing accessing the instance via mobile, I noticed an issue where simply closing the tab on a mobile (phone/tablet) doesn't actually automatically disconnect the user from the session. While the media (audio/video) streams from the mobile are no longer available, the user is still "logged in" (for a short period of time on the scale of 1-2 minutes) and any information that user shared in the chat remains (and anyone who logs into the session during this window will have access to the chat history even after they are logged out). This could be very dangerous if sensitive information is shared in the chat. To remediate this, I would suggest again protecting all sessions with a password. Notably, this issue does not seem to occur on the [online Jitsi instance](https://meet.jit.si).
 ![image of login](https://github.com/whunt1965/EC601_Project3/blob/main/Snip20201012_15.png)
+
+### Other Tests
+#### Overloading Session with Multiple Users
+I wanted to test how many users my Jitsi instance could handle simultaneously and therefore open multiple connections (from my same computer, though identified by Jitsi as multiple users). After opening 13 connections, I noticed that Jitsi began to drop connections. Indeed, within 2 minutes, 5 of the connections had been lost. This issue could easily have been caused due to my browser/computer, but still offered insihght into how my instance my handle large sessions.
+
+#### Large inputs in Chat Window
+I tested to see how the instance would handle large inputs in the chat window by copying and pasting text from the same document (which itself was in excess of 5 pages of type text) multiple times into the chat window. Ultimately, the instance appeared to handle this well by limiting how much of text was posted to that chat each time I hit submit (indeed, it ultimately took several submissions for the entire text to be emplaced in chat, but it did not appear that any information was lost). 
 
 
